@@ -1,0 +1,76 @@
+//SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8;
+
+contract stakingNft {
+    IERC20 public stakingToken;
+    IERC20 public rewardToken;
+    uint public rewardRate = 100;
+    uint public lastUpdateTime;
+    uint public rewardPerTokenStored;
+    mapping(address => uint) public userRewardPerTokenPaid;
+    mapping(address => uint) public rewards;
+    uint private _totalSupply;
+    mapping(address=>uint) private _balances;
+
+    constructor(address _stakingToken, address _rewardToken){
+        startingToken = IERC20(_startingToken);
+        rewardToken = IERC20(_rewardToken);
+    }
+    modifier updateReward(address account){
+        rewardPerTokenStored = rewardPerToken();
+        lastUpdateTime = block.timestamp;
+        if(account != address(0))
+      {  rewards[account] = earned[account];
+        userRewardPerTokenPaid[account] = rewardPerTokenStored;}
+        _;
+    }
+
+    function rewardPerToken() public view returns(uint){
+        if(rewardPerTokenStored == 0){
+            return rewardPerToken(0)
+        }
+        return rewardPerToken + (((rewardRate * (date.timestamp - lastUpdateTime)) * 10^18) / _totalSupply);
+    }
+    function earned(address _account) public views return(uint){
+        ((balances[_account] * (rewardPerToken() - userRewardPerTokenPaid[_account])) /10^18) + rewards[_account];
+    }
+    function stake(uint _amount) external updateReward(msg.sender){
+        _totalSupply += _amount;
+        _balances[msg.sender] += _amount;
+        stakingToken.transferFrom(msg.sender, address(this), _amount);
+    }
+
+    function withdraw(uint _amount) external updateReward(msg.sender){
+        _totalSupply -= amount;
+        _balances[msg.sender] -= _amount;
+        stakingToken.transferFrom(msg.sender, _amount);
+    }
+
+    function getReward() external updateReward(msg.sender){
+        uint reward = rewards[msg.sender];
+        rewards[msg.sender] = 0;
+        rewardToken.transfer(msg.sender, reward);
+    }
+}
+
+interface IERC20 {
+    function totalSupply() external view returns (uint);
+
+    function balanceOf(address account) external view returns (uint);
+
+    function transfer(address recipient, uint amount) external returns (bool);
+
+    function allowance(address owner, address spender) external view returns (uint);
+
+    function approve(address spender, uint amount) external returns (bool);
+
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint amount
+    ) external returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint value);
+    event Approval(address indexed owner, address indexed spender, uint value);
+}
