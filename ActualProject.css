@@ -1,0 +1,178 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+   height:550px;
+    top:0;
+}
+.content > img {
+    position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  object-fit: cover;
+  width: 100%;
+  height:550px;
+  animation-name: reveal;
+  animation-duration: 5s;
+  animation-delay:2s;
+}
+
+.loadingPage {
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 5;
+    background-color: black;
+    
+}
+
+.loader {
+    text-align: center;
+    color:aliceblue;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 42%;
+    top: 50%;
+    margin: -100px 0;
+    perspective: 200px;
+}
+
+.load_animation1,
+.load_animation2 {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid;
+    border-top-color: red;
+    border-right-color: blue;
+    border-left-color: green;
+    border-bottom-color: yellow;
+    position:absolute;
+    left: 40%;
+    top: 32%;
+    margin: -100px 0;
+    animation: effect 3s;
+    animation-iteration-count: infinite;
+}
+.load_animation2{
+    animation: effect2 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes effect {
+    0% {
+       transform: rotate3d(1,1,1, 0deg);
+
+    }
+    100%{
+        transform: rotate3d(1,1,1,360deg);
+    }
+}
+@keyframes effect2 {
+    0% {
+        transform: rotate3d(1,1,1, 0deg);
+ 
+     }
+     100%{
+         transform: rotate3d(1,1,1,-360deg);
+     }
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 15% auto 15%;
+    grid-template-rows: 150px;
+    grid-template-areas:'hd tabs img';
+    visibility:hidden;
+    animation-name: reveal;
+    animation-duration: 5s;
+    animation-delay:2s;
+}
+@keyframes reveal {
+    from{
+      
+        opacity:0;
+       transform: translate3d(0,100%,0);
+    }
+    to{
+    
+        opacity:1; 
+        transform: none;
+    }
+}
+.logo {
+    grid-area: hd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position:relative;
+    top: 10px;
+}
+
+.logo > img{
+        object-fit: cover;
+        position:absolute;
+        height:100px;
+        width:auto;
+        position: relative;
+        border-radius: 50%;
+  
+}
+.logo > .motto {
+    position: absolute;
+
+}
+.tabs {
+    grid-area: tabs;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    height: auto;
+
+  
+}
+.socialmedia ul{
+    list-style:none;
+    display:flex;
+    flex-direction: row;
+    position:relative;
+   margin-top: 50px;
+  
+   
+}
+ul .images{
+   width:100%;
+   margin:0;
+   padding:0;
+   margin-right: 20px;
+   display: block;
+   
+}
+.images img{
+  height:50px;
+  width:auto;
+  
+}
+
+a:link {
+    text-decoration: none;
+   
+}
